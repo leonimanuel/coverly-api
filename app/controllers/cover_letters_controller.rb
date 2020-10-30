@@ -2,9 +2,10 @@ class CoverLettersController < ApplicationController
 	def create
 		user = @current_user
 		
-		if cover_letter = CoverLetter.find_by(title: params[:title])
-			binding.pry
+		if cover_letter = CoverLetter.find(params[:id])
 			cover_letter.update(body: params[:body])
+			binding.pry
+			render json: {saved_time: cover_letter.updated_at}
 		else
 			binding.pry
 			cover_letter = CoverLetter.new(cover_letter_params)
@@ -13,6 +14,12 @@ class CoverLettersController < ApplicationController
 				render json: {status: "saved"}
 			end			
 		end
+	end
+
+	def show
+		user = @current_user
+		cover_letter = CoverLetter.find(params[:id])
+		render json: cover_letter
 	end
 
 	def search
