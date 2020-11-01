@@ -4,10 +4,8 @@ class CoverLettersController < ApplicationController
 		
 		if cover_letter = CoverLetter.find(params[:id])
 			cover_letter.update(body: params[:body])
-			binding.pry
 			render json: {saved_time: cover_letter.updated_at}
 		else
-			binding.pry
 			cover_letter = CoverLetter.new(cover_letter_params)
 			cover_letter.user = user
 			if cover_letter.save
