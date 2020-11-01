@@ -7,9 +7,6 @@ class AuthenticateUser
   end
 
   def call
-    puts "\n\n"
-    puts user
-    puts "\n\n"
     JsonWebToken.encode(user_id: user.id) if user
   end
 
