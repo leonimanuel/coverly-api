@@ -2,6 +2,9 @@ class ApplicationController < ActionController::API
  	before_action :authenticate_request
   attr_reader :current_user
 
+  def test
+  	render json: {status: "success"}
+  end
 
 
   private
