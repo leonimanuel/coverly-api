@@ -5,7 +5,7 @@ class UserSerializer < ActiveModel::Serializer
   	object.cover_letters.collect do |cover_letter|
 	  	{
 	  		id: cover_letter.id,
-	  		title: cover_letter.title,
+	  		name: cover_letter.name,
 	  		body: ""
 	  	}  		
   	end
