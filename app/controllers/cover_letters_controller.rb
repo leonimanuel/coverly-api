@@ -27,8 +27,9 @@ class CoverLettersController < ApplicationController
 		CoverLetter.where(user: user).all.each do |cover_letter|
 			sentence_array = cover_letter.body.split(/[.?!\n]/)
 			sentence_array.each do |sentence|
-				if sentence.include?(/\b#{search_term}\b/)
-					search_matches << sentence.squish
+				downcase_sentence = sentence.downcase
+				if downcase_sentence.match(/\b#{search_term.downcase}\b/)
+					search_matches << {phrase: sentence.squish, name: cover_letter.name}
 				end
 			end
 		end
