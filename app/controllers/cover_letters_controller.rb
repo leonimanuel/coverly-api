@@ -21,14 +21,14 @@ class CoverLettersController < ApplicationController
 	end
 
 	def search
-		search_term = params[:search_term].downcase;
-		user = @current_user;
-		search_matches = [];
+		search_term = params[:search_term]
+		user = @current_user
+		search_matches = []
 		CoverLetter.where(user: user).all.each do |cover_letter|
-			sentence_array = cover_letter.body.downcase.split(/[.?!\n]/)
+			sentence_array = cover_letter.body.split(/[.?!\n]/)
 			sentence_array.each do |sentence|
-				if sentence.match(/\b#{search_term}\b/)
-					search_matches << sentence.squish.humanize
+				if sentence.include?(/\b#{search_term}\b/)
+					search_matches << sentence.squish
 				end
 			end
 		end
