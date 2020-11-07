@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 		get "term_search/:search_term" => "cover_letters#search"
 	end
   
+	get "companies/:company_string" => "companies#search"
+	get "positions/:company_string" => "positions#search"
+
 	get "/" => "application#test"
 
 	post 'authenticate', to: 'authentication#authenticate'
