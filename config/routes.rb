@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 	end
   
 	get "companies/:company_string" => "companies#search"
-	get "positions/:company_string" => "positions#search"
+	get "positions/:position_string" => "positions#search"
 
 	get "/" => "application#test"
 
