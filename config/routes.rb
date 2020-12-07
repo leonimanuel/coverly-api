@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 		get "term_search/:search_term" => "cover_letters#search"
 	end
   
+  resources :positions 
+
 	get "companies/:company_string" => "companies#search"
 	get "positions/:position_string" => "positions#search"
 

@@ -10,4 +10,9 @@ class PositionsController < ApplicationController
 
 		render json: {matches: search_matches}
 	end
+
+	def index
+		positions = Position.all
+		render json: positions
+	end
 end
