@@ -12,5 +12,9 @@ Rails.application.routes.draw do
 	get "/" => "application#test"
 
 	post 'authenticate', to: 'authentication#authenticate'
+
+	# post "subscriptions/create-checkout-session" => "subscriptions#create"
+	get "subscriptions/create-checkout-session" => "subscriptions#checkout"
+	post "subscriptions/create-customer" => "subscriptions#create_customer"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
