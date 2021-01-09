@@ -28,6 +28,40 @@ class SubscriptionsController < ApplicationController
 		render json: customer
 	end
 
+	def create_subscription
+	  # content_type 'application/json'
+	  data = JSON.parse request.body.read
+
+	  begin
+	    Stripe::PaymentMethod.attach(
+	      data['paymentMethodId'],
+	      { customer: data['customerId'] }
+	    )
+	  rescue Stripe::CardError => e
+	    halt 200,
+	         { 'Content-Type' => 'application/json' },
+	         { 'error': { message: e.error.message } }.to_json
+	  end
+
+	  # Set the default payment method on the customer
+	  Stripe::Customer.update(
+	    data['customerId'],
+	    invoice_settings: { default_payment_method: data['paymentMethodId'] }
+	  )
+
+	  # Create the subscription
+	  subscription =
+	    Stripe::Subscription.create(
+	      customer: data['customerId'],
+	      items: [{ price: 'price_1I5avADNz9cUktccE0WvL6G1' }],
+	      expand: %w[latest_invoice.payment_intent]
+	    )
+
+	  subscription.to_json
+	  binding.pry
+	  render json: subscription	
+	end
+
 	# def create
 	#   content_type 'application/json'
 	#   data = JSON.parse(request.body.read)
