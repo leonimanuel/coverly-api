@@ -44,5 +44,9 @@ module CoverlyApi
           :max_age => 0
       end
     end
+
+    # Will this make omniauth work?
+    config.middleware.insert_after ActiveRecord::Migration::CheckPending, ActionDispatch::Cookies
+    config.middleware.insert_after ActionDispatch::Cookies, ActionDispatch::Session::CookieStore    
   end
 end

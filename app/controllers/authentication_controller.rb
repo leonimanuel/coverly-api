@@ -5,7 +5,9 @@ class AuthenticationController < ApplicationController
  	 puts "\n \n"
  	 puts params
  	 puts "\n\n" 
-   command = AuthenticateUser.call(params[:email], params[:password])
+   
+   # binding.pry
+   command = AuthenticateUser.call(params[:email], params[:password], params[:code])
 
    if command.success?
      render json: { auth_token: command.result }
