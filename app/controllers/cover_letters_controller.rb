@@ -1,15 +1,19 @@
 class CoverLettersController < ApplicationController
 	def create
 		user = @current_user
-		
-		if cover_letter = CoverLetter.find(params[:id])
+
+		# binding.pry		
+		if !params[:id].empty?
+			cover_letter = CoverLetter.find(params[:id])
 			cover_letter.update(body: params[:body])
 			render json: {saved_time: cover_letter.updated_at}
+		elsif CoverLetter.find_by(name: params[:name])
+			render json: {status: "duplicate"}
 		else
 			cover_letter = CoverLetter.new(cover_letter_params)
 			cover_letter.user = user
 			if cover_letter.save
-				render json: {status: "saved"}
+				render json: {id: cover_letter.id, name: cover_letter.name, saved_at: cover_letter.updated_at.strftime("%F %T")}
 			end			
 		end
 	end
