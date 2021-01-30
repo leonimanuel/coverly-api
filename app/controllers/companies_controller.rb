@@ -1,5 +1,6 @@
 class CompaniesController < ApplicationController
 	def search
+		# binding.pry
 		string = params[:company_string]
 		search_matches = []
 		Company.all.each do |company|
@@ -7,7 +8,7 @@ class CompaniesController < ApplicationController
 				search_matches << company.name
 			end
 		end
-
+		
 		render json: {matches: search_matches}
 	end
 end
