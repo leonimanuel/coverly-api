@@ -2,26 +2,44 @@ class CoverLettersController < ApplicationController
 	def create
 		user = @current_user
 
-		if !params[:id].empty? # if it's a new CL
-			binding.pry			
+		# if it's an existing cover letter
+		# binding.pry
+		if params[:id] 
+			binding.pry
 			cover_letter = CoverLetter.find(params[:id])
-			cover_letter.update(body: params[:body])
-			render json: {saved_time: cover_letter.updated_at}
+			
+			# if user changed the name of an existing cover letter
+			if params[:name] != cover_letter.name
+				cover_letter = CoverLetter.new(cover_letter_params)
+				cover_letter.user = user
+				if cover_letter.save
+					render json: {id: cover_letter.id, name: cover_letter.name, saved_at: Time.now.strftime("%F %T")}
+				end						
+			else
+				if cover_letter.update(cover_letter_params)
+					render json: {id: cover_letter.id, saved_at: Time.now.strftime("%F %T")}
+				end
+			end
+			
+		# If it's a new cover letter with same name as existing
 		elsif CoverLetter.find_by(name: params[:name])
-			# binding.pry
+			binding.pry
 			if params[:replace] == true
 				cover_letter = CoverLetter.find_by(name: params[:name])
-				cover_letter.update(cover_letter_params)
-				render json: {id: cover_letter.id, name: cover_letter.name, saved_at: cover_letter.updated_at.strftime("%F %T")}
+				if cover_letter.update(cover_letter_params)
+					render json: {id: cover_letter.id, name: cover_letter.name, saved_at: Time.now.strftime("%F %T")}
+				end 
 			else
 				render json: {duplicate: "true"}
 			end
+		
+		# If it's a new cover letter with a new name
 		else
 			binding.pry			
 			cover_letter = CoverLetter.new(cover_letter_params)
 			cover_letter.user = user
 			if cover_letter.save
-				render json: {id: cover_letter.id, name: cover_letter.name, saved_at: cover_letter.updated_at.strftime("%F %T")}
+				render json: {id: cover_letter.id, name: cover_letter.name, saved_at: Time.now.strftime("%F %T")}
 			end			
 		end
 	end
