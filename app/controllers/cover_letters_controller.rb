@@ -5,16 +5,19 @@ class CoverLettersController < ApplicationController
 		# if it's an existing cover letter
 		# binding.pry
 		if params[:id] 
-			binding.pry
 			cover_letter = CoverLetter.find(params[:id])
 			
 			# if user changed the name of an existing cover letter
 			if params[:name] != cover_letter.name
-				cover_letter = CoverLetter.new(cover_letter_params)
-				cover_letter.user = user
-				if cover_letter.save
-					render json: {id: cover_letter.id, name: cover_letter.name, saved_at: Time.now.strftime("%F %T")}
-				end						
+				if params[:newVersion] == false
+					render json: {new_version: "true"}
+				else #if user said it's "OK" to create a new cover letter with the new name
+					cover_letter = CoverLetter.new(cover_letter_params)
+					cover_letter.user = user
+					if cover_letter.save
+						render json: {id: cover_letter.id, name: cover_letter.name, saved_at: Time.now.strftime("%F %T")}
+					end					
+				end	
 			else
 				if cover_letter.update(cover_letter_params)
 					render json: {id: cover_letter.id, saved_at: Time.now.strftime("%F %T")}
@@ -23,7 +26,6 @@ class CoverLettersController < ApplicationController
 			
 		# If it's a new cover letter with same name as existing
 		elsif CoverLetter.find_by(name: params[:name])
-			binding.pry
 			if params[:replace] == true
 				cover_letter = CoverLetter.find_by(name: params[:name])
 				if cover_letter.update(cover_letter_params)
@@ -35,7 +37,6 @@ class CoverLettersController < ApplicationController
 		
 		# If it's a new cover letter with a new name
 		else
-			binding.pry			
 			cover_letter = CoverLetter.new(cover_letter_params)
 			cover_letter.user = user
 			if cover_letter.save
