@@ -45,6 +45,6 @@ class CoverLettersController < ApplicationController
 	private
 
 	def cover_letter_params
-		params.require(:cover_letter).permit(:name, :body)
+		params.require(:cover_letter).permit(:name, :body, :company, :position)
 	end
 end
