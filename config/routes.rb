@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 	get "positions/:position_string" => "positions#search"
   resources :positions
 
-	get "/" => "application#test"
+	get "test" => "application#test"
 
 	post 'authenticate', to: 'authentication#authenticate'
 
