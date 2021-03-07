@@ -1,3 +1,3 @@
 class CoverLetterSerializer < ActiveModel::Serializer
-  attributes :id, :body, :updated_at
+  attributes :id, :name :body, :company, :position :updated_at
 end
