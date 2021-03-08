@@ -4,7 +4,7 @@ class PositionsController < ApplicationController
 		search_matches = []
 		Position.all.each do |position|
 			if position.name.downcase.include?(string.downcase)
-				search_matches << position.name
+				search_matches << {position.name, position.id}
 			end
 		end
 

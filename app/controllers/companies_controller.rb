@@ -5,10 +5,15 @@ class CompaniesController < ApplicationController
 		search_matches = []
 		Company.all.each do |company|
 			if company.name.downcase.include?(string.downcase)
-				search_matches << company.name
+				search_matches << {name: company.name, id: company.id}
 			end
 		end
 		
 		render json: {matches: search_matches}
+	end
+
+	def show
+		company = Company.find(params["id"])
+		render json: company
 	end
 end
