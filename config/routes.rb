@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 	resources :companies, only: [:index, :show]
 	get "companies-search/:company_string" => "companies#search"
 	
-	get "companies-search/:position_string" => "positions#search"
+	get "positions-search/:position_string" => "positions#search"
   resources :positions
 
 	get "test" => "application#test"
