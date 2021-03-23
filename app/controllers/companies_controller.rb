@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
 	skip_before_action :authenticate_request
 
 	def search
-		binding.pry
+		# binding.pry
 		string = params[:company_string]
 		search_matches = []
 		Company.all.each do |company|

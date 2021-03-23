@@ -1,7 +1,6 @@
 class CoverLettersController < ApplicationController
 	def create
 		user = @current_user
-
 		# if it's an existing cover letter
 		# binding.pry
 		if params[:id] 
@@ -56,7 +55,13 @@ class CoverLettersController < ApplicationController
 		
 		# If it's a new cover letter with a new name
 		else
-			cover_letter = CoverLetter.new(cover_letter_params)
+			cover_letter = CoverLetter.new(
+				name: params[:name],
+				body: params[:body],
+				company: params[:company],
+				position: params[:position],
+				user: user
+			)
 			cover_letter.user = user
 			if cover_letter.save
 				render json: {id: cover_letter.id, name: cover_letter.name, saved_at: Time.now.strftime("%F %T")}
@@ -97,6 +102,6 @@ class CoverLettersController < ApplicationController
 	private
 
 	def cover_letter_params
-		params.require(:cover_letter).permit(:name, :body, :company, :position)
+		params.require(:cover_letter).permit(:id, :name, :body, :company, :position)
 	end
 end
