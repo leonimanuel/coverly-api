@@ -1,8 +1,16 @@
 class CoverLettersController < ApplicationController
 	def create
 		user = @current_user
+		
+		#checking to make sure company and position exist. If not, creates one with "public" set to false
+		if !Company.find_by(name: params[:company])
+			Company.create(name: params[:company])
+		end
+		if !Position.find_by(name: params[:position])
+			Position.create(name: params[:position])
+		end
+
 		# if it's an existing cover letter
-		# binding.pry
 		if params[:id] 
 			cover_letter = CoverLetter.find(params[:id])
 
@@ -98,6 +106,13 @@ class CoverLettersController < ApplicationController
 		render json: {matches: search_matches.uniq}
 	end
 
+	def destroy
+		# binding.pry
+		cover_letter = CoverLetter.find(params[:id])
+		CoverLetter.destroy(params[:id]) if cover_letter.user.id == params[:user_id].to_i
+		# binding.pry
+		render json: {status: "success"}
+	end
 
 	private
 

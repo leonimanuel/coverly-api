@@ -5,7 +5,7 @@ class PositionsController < ApplicationController
 		string = params[:position_string]
 		search_matches = []
 		Position.all.each do |position|
-			if position.name.downcase.include?(string.downcase)
+			if position.name.downcase.include?(string.downcase) && position.public
 				search_matches << { name: position.name, id: position.id }
 			end
 		end

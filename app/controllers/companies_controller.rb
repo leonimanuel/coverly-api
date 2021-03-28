@@ -6,7 +6,7 @@ class CompaniesController < ApplicationController
 		string = params[:company_string]
 		search_matches = []
 		Company.all.each do |company|
-			if company.name.downcase.include?(string.downcase)
+			if company.name.downcase.include?(string.downcase) && company.public
 				search_matches << {name: company.name, id: company.id}
 			end
 		end
