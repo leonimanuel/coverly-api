@@ -137,8 +137,6 @@ GEM
     pry (0.14.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    puma (4.3.7)
-      nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
     rack-cors (1.1.1)
@@ -220,7 +218,6 @@ DEPENDENCIES
   omniauth-linkedin-oauth2
   pg
   pry
-  puma (~> 4.1)
   rack-cors
   rails (~> 6.0.3, >= 6.0.3.4)
   simple_command
