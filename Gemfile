@@ -28,19 +28,19 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
 
-# # Stripe integration
-# gem "stripe"
+# Stripe integration
+gem "stripe"
 
-# gem 'omniauth'
-# # gem 'omniauth-linkedin'
-# gem "omniauth-linkedin-oauth2"
-# gem "httparty"
+gem 'omniauth'
+# gem 'omniauth-linkedin'
+gem "omniauth-linkedin-oauth2"
+gem "httparty"
 
-# gem "omniauth-facebook"
+gem "omniauth-facebook"
 
-# gem "spreadsheet"
+gem "spreadsheet"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
