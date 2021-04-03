@@ -1,7 +1,7 @@
 class SubscriptionsController < ApplicationController
 	skip_before_action :authenticate_request
 
-	Stripe.api_key = 'sk_test_51I5aZ0DNz9cUktccGIsIsiGmUrFbglHp4x9Its67NJ2rKJPW6m4F60jNEF9QuoCBCpU4Nptt0ACM2cBn4UB2DyoW00M06bl8Fi'
+	Stripe.api_key = ENV["STRIPE_API_KEY"]
 
 	def checkout
 		intent = Stripe::PaymentIntent.create({

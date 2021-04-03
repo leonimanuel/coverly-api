@@ -169,6 +169,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stripe (5.31.0)
     thor (1.1.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -198,6 +199,7 @@ DEPENDENCIES
   spreadsheet
   spring
   spring-watcher-listen (~> 2.0.0)
+  stripe
   tzinfo-data
 
 RUBY VERSION

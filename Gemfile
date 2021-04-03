@@ -32,7 +32,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors'
 
 # Stripe integration
-# gem "stripe"
+gem "stripe"
 
 # gem 'omniauth'
 # # gem 'omniauth-linkedin'
