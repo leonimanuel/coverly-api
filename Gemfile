@@ -37,7 +37,7 @@ gem 'rack-cors'
 # gem 'omniauth'
 # # gem 'omniauth-linkedin'
 # gem "omniauth-linkedin-oauth2"
-# gem "httparty"
+gem "httparty"
 
 # gem "omniauth-facebook"
 
