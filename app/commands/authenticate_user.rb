@@ -1,7 +1,7 @@
 class AuthenticateUser
   prepend SimpleCommand
 
-  def initialize(email, password, auth_code)
+  def initialize(email, password, auth_code = nil)
     @email = email
     @password = password
     @auth_code = auth_code

@@ -2,9 +2,9 @@ class AuthenticationController < ApplicationController
  skip_before_action :authenticate_request
 
  def authenticate
- 	 puts "\n \n"
- 	 puts params
- 	 puts "\n\n" 
+ 	 # puts "\n \n"
+ 	 # puts params
+ 	 # puts "\n\n" 
    
    # binding.pry
    command = AuthenticateUser.call(params[:email], params[:password], params[:code])

@@ -34,15 +34,32 @@ class SessionsController < ApplicationController
 		headers = {
 		  Authorization: "Bearer #{token}",
 		}
+
 		response = HTTParty.get(url, headers: headers)
+
 		email = response["elements"][0]["handle~"]["emailAddress"]
 
 		random_string = SecureRandom.urlsafe_base64
 
-		user = User.find_by(email: email)
-		user.update(auth_code: random_string)
+		if !User.where(email: email).empty? #if user exists
+			user = User.find_by(email: email)
+			user.update(password: random_string)
+		else
+			url = 'https://api.linkedin.com/v2/me'
+			response = HTTParty.get(url, headers: headers)
+			first_name = response["localizedFirstName"]
+			last_name = response["localizedLastName"]
 
-		redirect_to "http://localhost:3001/auth?rando=#{random_string}"		
+			user = User.create(
+				first_name: first_name, 
+				last_name: last_name,
+				email: email,
+				password: random_string)
+		end
+
+		command = AuthenticateUser.call(user.email, user.password)
+
+		redirect_to "http://localhost:3001/auth?token=#{command.result}"		
 	end
 
 	def test
