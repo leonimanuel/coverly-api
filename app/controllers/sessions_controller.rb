@@ -14,11 +14,14 @@ class SessionsController < ApplicationController
 		# binding.pry
 
 		code = params["code"]
+		# redirect_uri = "http://localhost:3000/auth/linkedin/callback"
+		redirect_uri = "https://coverly-api.herokuapp.com/auth/linkedin/callback"
+
 		uri = URI("https://www.linkedin.com/oauth/v2/accessToken")
 		res = Net::HTTP.post_form(uri, 
 		"grant_type" => "authorization_code",
 		"code" => code,
-		"redirect_uri" => "http://localhost:3000/auth/linkedin/callback",
+		"redirect_uri" => redirect_uri,
 		"client_id" => ENV['LINKEDIN_KEY'],
 		"client_secret" => ENV['LINKEDIN_SECRET']
 		)
