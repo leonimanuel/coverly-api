@@ -2,7 +2,6 @@ require "spreadsheet"
 
 module BlurbHelper
 	def import_blurbs
-		binding.pry
 		book = Spreadsheet.open 'company_culture_blurbs.xls'
 		sheet1 = book.worksheet 0 
 		sheet1.each.with_index(1) do |row, index|
