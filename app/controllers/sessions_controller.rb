@@ -59,7 +59,8 @@ class SessionsController < ApplicationController
 
 		command = AuthenticateUser.call(user.email, user.password)
 
-		redirect_to "http://localhost:3001/auth?token=#{command.result}"		
+		# redirect_to "http://localhost:3001/auth?token=#{command.result}"		
+		redirect_to "https://coverly.io/auth?token=#{command.result}"		
 	end
 
 	def test
