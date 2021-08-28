@@ -26,7 +26,7 @@ Position.create(name: "Front End Engineer")
 Position.create(name: "Back End Engineer")
 Position.create(name: "Dev Ops Engineer")
 Position.create(name: "Dev Support Engineer")
-
+Position.create(name: "Communications Specialist", keywords: ["Social Media", "SEO", "CRM", "Mailchimp", "SalesForce", "Hubspot", "Microsoft", "Google Analytics",  "written communications", "Slack"])
 
 
 
