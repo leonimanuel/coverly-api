@@ -9,7 +9,7 @@ class PositionsController < ApplicationController
 				search_matches << { name: position.name, id: position.id }
 			end
 		end
-
+		# binding.pry
 		render json: {matches: search_matches}
 	end
 
