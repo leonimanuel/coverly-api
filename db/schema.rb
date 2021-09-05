@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_05_143432) do
+ActiveRecord::Schema.define(version: 2021_09_05_154652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_09_05_143432) do
     t.bigint "position_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "ts_position_id"
     t.index ["keyword_id"], name: "index_keywords_positions_on_keyword_id"
     t.index ["position_id"], name: "index_keywords_positions_on_position_id"
   end
@@ -56,8 +57,6 @@ ActiveRecord::Schema.define(version: 2021_09_05_143432) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "keywords", default: [], array: true
     t.boolean "public", default: false
-    t.text "top_skills", default: [], array: true
-    t.text "all_skills", default: [], array: true
   end
 
   create_table "users", force: :cascade do |t|
