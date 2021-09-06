@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 	# get 'auth/linkedin/callback', to: redirect("https://stackoverflow.com/questions/42914666/react-router-external-link")
 
 	# get "get-auth-info" => 'sessions#test'
-
+	get "keywords/general" => "keywords#general"
 	# post "subscriptions/create-checkout-session" => "subscriptions#create"
 	get "subscriptions/create-checkout-session" => "subscriptions#checkout"
 	post "subscriptions/create-customer" => "subscriptions#create_customer"
