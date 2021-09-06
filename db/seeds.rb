@@ -21,12 +21,98 @@ Company.create(name: "Microsoft")
 Company.create(name: "Procore")
 Company.create(name: "PwC")
 
-Position.create(name: "Full Stack Engineer")
-Position.create(name: "Front End Engineer")
+fs = Position.create(name: "Full Stack Engineer")
+front_end = Position.create(name: "Front End Engineer")
 Position.create(name: "Back End Engineer")
-Position.create(name: "Dev Ops Engineer")
-Position.create(name: "Dev Support Engineer")
-Position.create(public: true, name: "Communications Specialist", keywords: ["Social Media", "SEO", "CRM", "Mailchimp", "SalesForce", "Hubspot", "Microsoft", "Google Analytics",  "written communications", "Slack"])
+dev_ops = Position.create(name: "DevOps Engineer")
+# Position.create(name: "Dev Support Engineer")
+# Position.create(public: true, name: "Communications Specialist", keywords: ["Social Media", "SEO", "CRM", "Mailchimp", "SalesForce", "Hubspot", "Microsoft", "Google Analytics",  "written communications", "Slack"])
+
+
+
+
+tech = Industry.find_by(name: "Tech")
+new_keywords = %w(Golang SQS Redux Typescript SASS )
+new_keywords.each {|kw| Keyword.create(name: kw, lower_case: kw.downcase industry: tech)}
+
+
+# front_end = Position.second
+frontend_top_skills = ["HTML", "CSS", "JavaScript", "JQuery", "React", "Vue", "Agile", "Git", "Selenium", "npm"]
+frontend_top_skills.each do |kw|
+	keyword = ""
+	if Keyword.find_by(lower_case: kw.downcase)		
+		keyword = Keyword.find_by(lower_case: kw.downcase)
+	else
+		keyword = Keyword.create(name: kw, lower_case: kw.downcase, industry: Industry.first)
+	end
+	front_end.keywords << keyword
+end
+
+
+fs_top_skills = ["JavaScript", "Python", "HTML", "CSS", "Node.js", "MySQL", "PostgreSQL", "AWS", "Git", "Docker"]
+fs_top_skills.each do |kw|
+	keyword = ""
+	if Keyword.find_by(lower_case: kw.downcase)		
+		keyword = Keyword.find_by(lower_case: kw.downcase)
+	else
+		keyword = Keyword.create(name: kw, lower_case: kw.downcase, industry: Industry.first)
+	end
+	fs.keywords << keyword
+end
+
+
+
+dev_ops_skills = ["Continuous integration", "Continuous Delivery", "Continuous Deployment", "Containers", "Kubernetes", "Analytics", "GitOps", "AWS", "Serverless", "JIRA"]
+dev_ops_skills.each do |kw|
+	keyword = ""
+	if Keyword.find_by(lower_case: kw.downcase)		
+		keyword = Keyword.find_by(lower_case: kw.downcase)
+	else
+		keyword = Keyword.create(name: kw, lower_case: kw.downcase, industry: Industry.first)
+	end
+	dev_ops.keywords << keyword
+end
+
+
+sec_eng = Position.create(name: "Security Engineer", industry: Industry.first)
+sec_eng_skills = ["Wireshark", "Nmap", "Netcat", "Metasploit", "Nikto", "Burp", "Nessus", "Snort", "CISSP", "CISA"]
+sec_eng_skills.each do |kw|
+	keyword = ""
+	if Keyword.find_by(lower_case: kw.downcase)		
+		keyword = Keyword.find_by(lower_case: kw.downcase)
+	else
+		keyword = Keyword.create(name: kw, lower_case: kw.downcase, industry: Industry.first)
+	end
+	sec_eng.keywords << keyword
+end
+
+
+ios_eng = Position.create(name: "iOS Engineer", industry: Industry.first)
+ios_eng_skills = ["Swift", "Objective-C", "Xcode", "CocoaPods", "MVVM", "Viper", "RxSwift", "Jazzy", "SQL", "Realm"]
+ios_eng_skills.each do |kw|
+	keyword = ""
+	if Keyword.find_by(lower_case: kw.downcase)		
+		keyword = Keyword.find_by(lower_case: kw.downcase)
+	else
+		keyword = Keyword.create(name: kw, lower_case: kw.downcase, industry: Industry.first)
+	end
+	ios_eng.keywords << keyword
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

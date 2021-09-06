@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_05_161852) do
+ActiveRecord::Schema.define(version: 2021_09_06_185225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,11 +42,22 @@ ActiveRecord::Schema.define(version: 2021_09_05_161852) do
   end
 
   create_table "keywords", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "industry_id"
+    t.integer "industry_id", null: false
+    t.string "lower_case", null: false
+    t.index ["lower_case"], name: "index_keywords_on_lower_case", unique: true
     t.index ["name"], name: "index_keywords_on_name", unique: true
+  end
+
+  create_table "keywords_companies", force: :cascade do |t|
+    t.bigint "keyword_id", null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_keywords_companies_on_company_id"
+    t.index ["keyword_id"], name: "index_keywords_companies_on_keyword_id"
   end
 
   create_table "keywords_positions", force: :cascade do |t|
@@ -54,7 +65,6 @@ ActiveRecord::Schema.define(version: 2021_09_05_161852) do
     t.bigint "position_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "ts_position_id"
     t.index ["keyword_id"], name: "index_keywords_positions_on_keyword_id"
     t.index ["position_id"], name: "index_keywords_positions_on_position_id"
   end
@@ -79,4 +89,6 @@ ActiveRecord::Schema.define(version: 2021_09_05_161852) do
   end
 
   add_foreign_key "cover_letters", "users"
+  add_foreign_key "keywords_companies", "companies"
+  add_foreign_key "keywords_companies", "keywords"
 end
