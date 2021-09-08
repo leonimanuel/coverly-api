@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_08_003134) do
+ActiveRecord::Schema.define(version: 2021_09_08_232944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 2021_09_08_003134) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "industry_id", null: false
     t.string "lower_case", null: false
     t.boolean "public", default: true
     t.index ["lower_case"], name: "index_keywords_on_lower_case", unique: true
@@ -59,6 +58,15 @@ ActiveRecord::Schema.define(version: 2021_09_08_003134) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_keywords_companies_on_company_id"
     t.index ["keyword_id"], name: "index_keywords_companies_on_keyword_id"
+  end
+
+  create_table "keywords_industries", force: :cascade do |t|
+    t.bigint "keyword_id", null: false
+    t.bigint "industry_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["industry_id"], name: "index_keywords_industries_on_industry_id"
+    t.index ["keyword_id"], name: "index_keywords_industries_on_keyword_id"
   end
 
   create_table "keywords_positions", force: :cascade do |t|
@@ -92,4 +100,6 @@ ActiveRecord::Schema.define(version: 2021_09_08_003134) do
   add_foreign_key "cover_letters", "users"
   add_foreign_key "keywords_companies", "companies"
   add_foreign_key "keywords_companies", "keywords"
+  add_foreign_key "keywords_industries", "industries"
+  add_foreign_key "keywords_industries", "keywords"
 end
