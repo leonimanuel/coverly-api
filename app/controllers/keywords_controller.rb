@@ -4,7 +4,7 @@ class KeywordsController < ApplicationController
 	def general
 		# company = Company.find(params["id"])
 		general = Industry.find_by(name: "General")
-		keywords = Keyword.where(industry: general)
+		keywords = Keyword.where(industry: general, public: true)
 		render json: keywords
 	end
 end

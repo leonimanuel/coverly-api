@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_06_185225) do
+ActiveRecord::Schema.define(version: 2021_09_08_003134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_09_06_185225) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "industry_id", null: false
     t.string "lower_case", null: false
+    t.boolean "public", default: true
     t.index ["lower_case"], name: "index_keywords_on_lower_case", unique: true
     t.index ["name"], name: "index_keywords_on_name", unique: true
   end

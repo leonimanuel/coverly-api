@@ -31,7 +31,9 @@ module BlurbHelper #run from console with: ApplicationController.helpers.import_
 					else
 						keyword = Keyword.create(name: kw, lower_case: kw.downcase, industry: industry)
 					end
-					company.keywords << keyword				
+					if company.keywords.where(id: keyword.id).empty?
+						company.keywords << keyword							
+					end
 				end				
 			end
 		end 			
