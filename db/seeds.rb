@@ -103,13 +103,11 @@ end
 
 
 
-
-
-
-
-
-
-
+# TROUBLESOME KEYWORDS
+Keyword.find_by(name: "C").update(public: false)
+Keyword.find_by(name: "R").update(public: false)
+Keyword.find_by(name: "Go").update(public: false)
+Keyword.find_by(name: "OSS").update(public: false)
 
 
 
