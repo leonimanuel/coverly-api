@@ -1,37 +1,30 @@
 require "spreadsheet"
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-# billy = User.create(first_name: "Billy", last_name: "Buxington", email: "billy@aol.com", password: "greenbeans")
-# claire = User.create(first_name: "Claire", last_name: "Strickland", email: "claire@gmail.com", password: "fishsticks")
-# ashley = User.create(first_name: "Ashley", last_name: "Tisdale", email: "ashley@yahoo.com", password: "milkmaid")
-# megan = User.create(first_name: "Megan", last_name: "Fox", email: "megan@aol.com", password: "greenbeans")
-# ben = User.create(first_name: "Ben", last_name: "Shwartzman", email: "ben@gmail.com", password: "fishsticks")
-# luke = User.create(first_name: "Luke", last_name: "Dukerman", email: "luke@yahoo.com", password: "milkmaid")
-
-# procore = CoverLetter.create(name: "ReD Associates Cover Letter", body: "Research\n\nMy thesis project for my software engineering program at Flatiron School focused on honing peoples’ research skills when it comes to the issues facing society today. Furthermore, as founder and head tutor at Paper Jam Tutoring, I have helped dozens of undergraduate students craft insightful and incisive questions for interviews relating to research projects. I’ve also helped them find and interpret high-quality qualitative research for hundreds of assignments on topics ranging from psychology to business to indigenous tribes and more. Lastly, between writing in-depth news articles about developments in sub-Saharan Africa for the Thomson Reuters Foundation and compiling in-depth market analysis for corporate clients in my time at Keystone Equities, I know firsthand the importance of meticulous attention to both accuracy and clarity.\n\nCommunication\n\nAs a tutor, I have worked with many students from around the world with less-than-proficient English language skills and found ways to communicate effectively and engagingly. As a front-desk associate at a hotel just minutes from United Nations Headquarters, I accommodated guests from all over the world, learning to overcome all sorts of cultural and linguistic barriers. In addition to English being my native language, I speak fluent Russian and limited Hebrew. In so far as wielding these languages effectively, while at the Thomson Reuter’s Foundation I participated in their C-suite communications training program, geared toward adapting to changes and using clear, decisive language across all forms of communication.\n\nI believe I’m a great fit for this position because like ReD, I believe in the power of storytelling. The best, most impactful stories are those which help us make sense of that which seems senseless, of ourselves and of the complex world around us. My cross-disciplinary skillset allows for a wider lens through which to observe and deconstruct these complexities, whether face-to-face or from behind the screen.", user: billy)
-
-# Company.create(name: "Apple")
-# Company.create(name: "Google")
-# Company.create(name: "Microsoft")
-# Company.create(name: "Procore")
-# Company.create(name: "PwC")
 
 tech = Industry.create(name: "Tech")
 general = Industry.create(name: "General")
-finance = Industry.create(name: "Finance")
+business = Industry.create(name: "Business")
+marketing = Industry.create(name: "Marketing")
+
+marketing_keywords = []
 
 fs = Position.create(name: "Full Stack Engineer", public: true, industry: tech)
 front_end = Position.create(name: "Front End Engineer", public: true, industry: tech)
 dev_ops = Position.create(name: "DevOps Engineer", public: true, industry: tech)
-sec_eng = Position.create(name: "Security Engineer", public: true, industry: Industry.first)
-ios_eng = Position.create(name: "iOS Engineer", public: true, industry: Industry.first)
+sec_eng = Position.create(name: "Security Engineer", public: true, industry: tech)
+ios_eng = Position.create(name: "iOS Engineer", public: true, industry: tech)
+# data_scientist = Position.create(name: "Data Scientist", public: true, industry: tech)
 
-financial_analyst = Position.create(name: "Financial Analyst", public: true, industry: Industry.first) 
+financial_analyst = Position.create(name: "Financial Analyst", public: true, industry: business)
+account_manager = Position.create(name: "Communications Specialist", public: true, industry: business) 
+admin_assistant = Position.create(name: "Administrative Assistant", public: true, industry: business) 
+# csm = Position.create(name: "Customer Success Manager", public: true, industry: business) 
+# sales_person = Position.create(name: "Sales Specialist", public: true, industry: business) 
+
+social_media_manager = Position.create(name: "Social Media Manager", public: true, industry: marketing)
+comm_specialist = Position.create(name: "Communications Specialist", public: true, industry: marketing) 
+
 
 # Position.create(name: "Dev Support Engineer")
 # Position.create(public: true, name: "Communications Specialist", keywords: ["Social Media", "SEO", "CRM", "Mailchimp", "SalesForce", "Hubspot", "Microsoft", "Google Analytics",  "written communications", "Slack"])
@@ -42,6 +35,45 @@ keyword_ind_array.each do |kw|
 	keyword = Keyword.create(name: kw[:name], lower_case: kw[:name].downcase)
 	keyword.industries << Industry.find_by(name: kw[:industry])
 end
+
+def importKeywords(position, top_skills, industry)
+	top_skills.each do |kw|
+		keyword = ""
+		if Keyword.find_by(lower_case: kw.downcase)		
+			keyword = Keyword.find_by(lower_case: kw.downcase)
+		else
+			keyword = Keyword.create(name: kw, lower_case: kw.downcase)
+			keyword.industries << industry
+		end
+		position.keywords << keyword
+	end	
+end
+
+social_media_manager_ts = ["SEO", "PR", "digital", "Canva", "email", "Adobe", "multi-channel", "Google Anlaytics", "KPI", "e-commerce"]
+importKeywords(social_media_manager, social_media_manager_ts, marketing)
+
+comm_specialist_ts = ["Social Media", "SEO", "CRM", "Mailchimp", "SalesForce", "Hubspot", "Microsoft", "Google Analytics",  "written communications", "Slack"]
+importKeywords(comm_specialist, comm_specialist_ts, marketing)
+
+account_manager_ts = ["business development", "team player", "conversation", "Salesforce", "C-level", "enterprise", "SaaS", "B2B", "relationships", "CRM"]
+importKeywords(account_manager, account_manager_ts, business)
+
+admin_assistant_ts = ["written communication", "verbal communication", "Microsoft Office", "meet deadlines", "detail-oriented", "coordinate", "project management", "organized", "Concur", "time management"]
+importKeywords(admin_assistant, admin_assistant_ts, business)
+
+financial_analyst_top_skills = ["forecasting", "CPA", "invoicing", "GAAP", "financial statements", "financial modeling", "Excel", "asset management", "Bloomberg", "P&L"]
+financial_analyst_top_skills.each do |kw|
+	keyword = ""
+	if Keyword.find_by(lower_case: kw.downcase)		
+		keyword = Keyword.find_by(lower_case: kw.downcase)
+		keyword.industries << business if !keyword.industries.include?(business)
+	else
+		keyword = Keyword.create(name: kw, lower_case: kw.downcase)
+		keyword.industries << business
+	end
+	financial_analyst.keywords << keyword
+end
+
 
 
 frontend_top_skills = ["HTML", "CSS", "JavaScript", "JQuery", "React", "Vue", "Agile", "Git", "Selenium", "npm"]
@@ -119,13 +151,6 @@ Keyword.find_by(name: "C").update(public: false)
 Keyword.find_by(name: "R").update(public: false)
 Keyword.find_by(name: "Go").update(public: false)
 Keyword.find_by(name: "OSS").update(public: false)
-
-
-
-
-
-
-
 
 
 
