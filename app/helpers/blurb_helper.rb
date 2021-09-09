@@ -29,7 +29,8 @@ module BlurbHelper #run from console with: ApplicationController.helpers.import_
 					if Keyword.find_by(lower_case: kw.downcase)		
 						keyword = Keyword.find_by(lower_case: kw.downcase)
 					else
-						keyword = Keyword.create(name: kw, lower_case: kw.downcase, industry: industry)
+						keyword = Keyword.create(name: kw, lower_case: kw.downcase)
+						keyword.industries << industry
 					end
 					if company.keywords.where(id: keyword.id).empty?
 						company.keywords << keyword							
