@@ -2,7 +2,6 @@ class CompaniesController < ApplicationController
 	skip_before_action :authenticate_request
 
 	def search
-		# binding.pry
 		string = params[:company_string]
 		search_matches = []
 		Company.all.each do |company|
@@ -14,8 +13,13 @@ class CompaniesController < ApplicationController
 		render json: {matches: search_matches}
 	end
 
-	def show
-		company = Company.find(params["id"])
-		render json: company
+	def show_or_create
+		if params["company"]["id"] == "request-company"
+			Company.create(name: params["company"]["name"], public: false)
+		else
+			company = Company.find(params["id"])
+			render json: company			
+		end
+
 	end
 end
