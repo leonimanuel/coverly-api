@@ -20,6 +20,5 @@ class CompaniesController < ApplicationController
 			company = Company.find(params["id"])
 			render json: company			
 		end
-
 	end
 end

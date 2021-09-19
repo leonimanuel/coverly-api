@@ -18,8 +18,12 @@ class PositionsController < ApplicationController
 		render json: positions
 	end
 
-	def show
-		position = Position.find(params["id"])
-		render json: position
+	def show_or_create
+		if params["position"]["id"] == "request-position"
+			Position.create(name: params["position"]["name"], public: false)
+		else
+			position = Position.find(params["id"])
+			render json: position
+		end	
 	end
 end

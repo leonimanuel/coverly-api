@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 	post "companies" => "companies#show_or_create"
 
 	get "positions-search/:position_string" => "positions#search"
-  resources :positions
+  post "positions" => "positions#show_or_create"
+  resources :positions, only: [:index]
+
 
 	get "test" => "application#test"
 
