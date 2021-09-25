@@ -6,3 +6,6 @@ class KeywordsController < ApplicationController
 		render json: keywords
 	end
 end
+
+
+# kw = Keyword.create(name: "intense", lower_case: "intense", public: true)

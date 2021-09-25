@@ -32,5 +32,7 @@ Rails.application.routes.draw do
 	get "subscriptions/create-checkout-session" => "subscriptions#checkout"
 	post "subscriptions/create-customer" => "subscriptions#create_customer"
 	post "subscriptions/create-subscription" => "subscriptions#create_subscription"
+
+	post "feedback" => "users#feedback"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
