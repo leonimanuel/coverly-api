@@ -25,12 +25,5 @@ class PositionsController < ApplicationController
 			position = Position.find(params["id"])
 			render json: position
 		end	
-
-		if params["company"]["id"] == "request-company"
-			Company.create(name: params["company"]["name"], public: false)
-		else
-			company = Company.find(params["id"])
-			render json: company			
-		end		
 	end
 end
