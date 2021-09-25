@@ -20,10 +20,17 @@ class PositionsController < ApplicationController
 
 	def show_or_create
 		if params["position"]["id"] == "request-position"
-			Position.create(name: params["position"]["name"], public: false)
+			Position.create(name: params["position"]["name"], industry: Industry.find_by(name: "General"), public: false)
 		else
 			position = Position.find(params["id"])
 			render json: position
 		end	
+
+		if params["company"]["id"] == "request-company"
+			Company.create(name: params["company"]["name"], public: false)
+		else
+			company = Company.find(params["id"])
+			render json: company			
+		end		
 	end
 end
